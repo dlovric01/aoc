@@ -1,22 +1,13 @@
-import 'dart:io';
-
-void main() {
-  readInput().then((contents) {
-    List<String> lines = contents.split('\n');
-    int sum = 0;
-    for (var i = 0; i < lines.length; i++) {
-      final check = checkIfValid(lines[i]);
-      if (check) {
-        sum = sum + i + 1;
-      }
+int partOne(List<String> games) {
+  int sum = 0;
+  for (var i = 0; i < games.length; i++) {
+    final check = checkIfValid(games[i]);
+    if (check) {
+      sum = sum + i + 1;
     }
-    print(sum);
-  });
-}
-
-Future<String> readInput() async {
-  final file = File('lib/day2/input.txt');
-  return file.readAsString();
+  }
+  print(sum);
+  return sum;
 }
 
 bool checkIfValid(String inpt) {
