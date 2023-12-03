@@ -1,10 +1,10 @@
-import 'dart:io';
-
 import 'package:aoc/day2/part1.dart';
 import 'package:aoc/day2/part2.dart';
 
+import 'package:aoc/read_input.dart';
+
 void main() {
-  readInput().then((contents) {
+  readInput('lib/day2/input.txt').then((contents) {
     List<String> games = contents.split('\n');
 
     //  part 1
@@ -15,9 +15,4 @@ void main() {
     final result2 = partTwo(games);
     print(result2);
   });
-}
-
-Future<String> readInput() async {
-  final file = File('lib/day2/input.txt');
-  return file.readAsString();
 }

@@ -1,7 +1,7 @@
-import 'dart:io';
+import 'package:aoc/read_input.dart';
 
 void main() {
-  readInput().then((contents) {
+  readInput('lib/day1/input.txt').then((contents) {
     List<String> lines = contents.split('\n');
 
     var sum = 0;
@@ -12,11 +12,6 @@ void main() {
 
     print(sum);
   });
-}
-
-Future<String> readInput() async {
-  final file = File('lib/day1/input.txt');
-  return file.readAsString();
 }
 
 int getNumber(String line) {
