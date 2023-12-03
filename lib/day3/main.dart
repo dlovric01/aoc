@@ -1,15 +1,23 @@
 import 'dart:collection';
 import 'dart:io';
 
-void main(List<String> args) {
+void main() {
   var D = File('lib/day3/input.txt').readAsStringSync().trim();
   var lines = D.split('\n');
   var G = [for (var line in lines) line.split('')];
   var R = G.length;
   var C = G[0].length;
 
-  var p1 = 0;
   var nums = HashMap<String, List<int>>();
+  var p1 = calculateP1(R, C, G, nums);
+  print(p1);
+  var p2 = calculateP2(nums);
+  print(p2);
+}
+
+int calculateP1(
+    int R, int C, List<List<String>> G, HashMap<String, List<int>> nums) {
+  var p1 = 0;
 
   for (var r = 0; r < R; r++) {
     var gears = <String>{};
@@ -47,15 +55,17 @@ void main(List<String> args) {
     }
   }
 
-  print(p1);
+  return p1;
+}
 
+int calculateP2(HashMap<String, List<int>> nums) {
   var p2 = 0;
   for (var v in nums.values) {
     if (v.length == 2) {
       p2 += v[0] * v[1];
     }
   }
-  print(p2);
+  return p2;
 }
 
 extension on String {
