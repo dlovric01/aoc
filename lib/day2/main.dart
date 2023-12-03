@@ -8,11 +8,11 @@ void main() {
     List<String> games = contents.split('\n');
 
     //  part 1
-    final result1 = partOne(games);
+    final result1 = Day2Part1().partOne(games);
     print(result1);
 
     //  part 2
-    final result2 = partTwo(games);
+    final result2 = Day2Part2().partTwo(games);
     print(result2);
   });
 }
