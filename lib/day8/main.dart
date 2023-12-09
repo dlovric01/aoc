@@ -16,11 +16,9 @@ void main(List<String> args) {
     }
   }
 
-  // part1(listOfMaps, instructions);
+  part1(listOfMaps, instructions);
   part2(listOfMaps, instructions);
 }
-
-final alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 
 void part2(
     List<Map<String, List<String>>> listOfMaps, List<String> instructions) {
@@ -28,12 +26,15 @@ void part2(
       listOfMaps.where((element) => element.keys.first.endsWith('A')).toList();
 
   int j = 0;
+  int k = 0;
   int stepCount = 0;
   var elements = List.generate(currentMaps.length, (index) => '');
+  var lengths = List.generate(currentMaps.length, (index) => 0);
 
-  for (var i = 0; i < listOfMaps.length; i++) {
-    final currentInstruction = instructions[j];
-    for (var k = 0; k < currentMaps.length; k++) {
+  while (!elements.every((element) => element.endsWith('Z'))) {
+    for (var v = 0; v < listOfMaps.length; v++) {
+      final currentInstruction = instructions[j];
+
       if (currentInstruction == 'L') {
         elements[k] = currentMaps[k].values.first.first;
       } else {
@@ -41,21 +42,53 @@ void part2(
       }
       currentMaps[k] =
           listOfMaps.firstWhere((el) => el.containsKey(elements[k]));
-    }
-    j++;
-    if (j == instructions.length) {
-      j = 0;
-    }
-    if (i == listOfMaps.length - 1) {
-      i = 0;
-    }
-    print(elements);
-    stepCount++;
-    if (elements.every((element) => element.endsWith('Z'))) {
-      break;
+      j++;
+      if (j == instructions.length) {
+        j = 0;
+      }
+      if (v == currentMaps.length - 1) {
+        v = 0;
+      }
+      stepCount++;
+      if (elements[k].endsWith('Z')) {
+        lengths[k] = stepCount;
+        stepCount = 0;
+        k++;
+      }
+      if (elements.every((element) => element.endsWith('Z'))) {
+        break;
+      }
     }
   }
-  print(stepCount);
+  print(lengths);
+  print(findLCM(lengths));
+}
+
+int gcd(int a, int b) {
+  while (b != 0) {
+    var temp = b;
+    b = a % b;
+    a = temp;
+  }
+  return a;
+}
+
+int lcm(int a, int b) {
+  return (a * b) ~/ gcd(a, b);
+}
+
+int findLCM(List<int> numbers) {
+  if (numbers.isEmpty) {
+    throw ArgumentError("The list must not be empty.");
+  }
+
+  int result = numbers[0];
+
+  for (int i = 1; i < numbers.length; i++) {
+    result = lcm(result, numbers[i]);
+  }
+
+  return result;
 }
 
 void part1(
